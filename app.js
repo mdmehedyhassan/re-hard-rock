@@ -8,6 +8,9 @@
 // };
 
 const searchSong = async() => {
+    allInnerTextHTML();
+    toggleSpinner();
+    // document.getElementById('spinnerDisplay').classList.remove('d-none');
     const searchText = document.getElementById('search-field').value;
     const url = `https://api.lyrics.ovh/suggest/${searchText}`;
     try{
@@ -42,6 +45,8 @@ const displaySongs = songs => {
         `;
         songContainer.appendChild(newDiv);
     })
+    toggleSpinner();
+    // document.getElementById('spinnerDisplay').classList.add('d-none');
 };
 
 // async function getLyric(artist, title) {
@@ -69,6 +74,8 @@ const displayError = error => {
     const errorTag = document.getElementById('error-message');
     allInnerTextHTML();
     errorTag.innerText = error;
+    toggleSpinner();
+    // document.getElementById('spinnerDisplay').classList.add('d-none');
 }
 
 const allInnerTextHTML = () => {
@@ -78,4 +85,12 @@ const allInnerTextHTML = () => {
     errorTag.innerText = '';
     const songLyrics = document.getElementById('song-lyrics');
     songLyrics.innerText = '';
+}
+
+function toggleSpinner() {
+    document.getElementById('spinnerDisplay').classList.toggle('d-none')
+}
+
+function keyupInput(e){
+    if (e.keyCode === 13) searchSong()
 }
